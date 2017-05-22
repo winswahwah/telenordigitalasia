@@ -1,3 +1,5 @@
+'use strict'
+
 # Load Node Module(s)
 express		= require 'express'
 useragent	= require 'express-useragent'

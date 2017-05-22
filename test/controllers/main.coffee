@@ -54,7 +54,7 @@ describe 'MainController', =>
 				done()
 
 
-	it 'getIndexValue with no parameter [Fail]', (done) =>
+	it 'getIndexValue without parameter [Fail]', (done) =>
 		data = []
 
 		supertest.post('/api/index/value/get')

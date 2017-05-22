@@ -7,16 +7,6 @@ class Base
 
 
 	get: (where) =>
-		Promise.resolve(@schema.findOne(where))
-			.then (obj) =>
-				unless obj then return null
-
-				obj.dataValues
-			.catch (err) =>
-				throw err
-
-
-	getAll: (where) =>
 		Promise.resolve(@schema.findAll(where))
 			.then (obj) =>
 				unless obj then return null

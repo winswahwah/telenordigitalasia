@@ -1,38 +1,67 @@
+'use strict'
+
 className = "MainController"
 
 
+#	getIndexValue
+#
+#	@restapi GET /api/index/value/get
+#
+#	@request parameter(s)
+#		{string}	index_name		(required)
+#		{datetime}	start_datetime	(optional | required with end_datetime)
+#		{datetime}	end_datetime	(optional | required with start_datetime)
+#		{integer}	limit			(optional)
+#
+#	@response (JSON Format)
+#		{
+#			"data": [
+#				{
+#					"id":		{integer}
+#					"name":		{string}
+#					"value":	{double}
+#					"datetime":	{datetime}
+#				}
+#			],
+#			"message": {string}
+#		}
+#
 exports.getIndexValue = (req, res) ->
-	console.log className, "|", "getIndexValue called"
-	console.log className, "|", "request parameter(s):", req.query
-
 	params = undefined
 
-	# Create Validation Schema
+	# Declare Validation Schema
 	schema = Joi.object().keys
 		index_name: 	Joi.string().required()
 		start_datetime:	Joi.date().optional()
 		end_datetime: 	Joi.date().optional()
-		limit: 			Joi.number().integer().optional()
+		limit: 			Joi.number().integer().min(1).optional()
 	.with('start_datetime',	'end_datetime')
 	.with('end_datetime',	'start_datetime')
 
 	# Validate Request Parameter
-	Promise.try(-> Validator.validate(req.query, schema))
+	Promise.try(-> Validator.validate(req.body, schema))
 		.then (p) ->
 			params = p
 
-			# TODO: Get Index Value
+			# Prepare SQL Query Object
+			where =
+				where:
+					'name': params.index_name
 
-			result = []
+			if params.start_datetime? and params.end_datetime?
+				where.where.datetime =
+					$gte: params.start_datetime
+					$lte: params.end_datetime
 
+			if params.limit? then where.limit = params.limit
+
+			# Call Get Method from Index Model
+			Promise.resolve(Index.get(where))
+		.then (result) ->
 			[200, result, 'Index Value Retrieved Successfully']
 		.then (data) ->
-			console.log className, "|", "RESULT:", data
-
 			# Return JSON Response
 			Helper.responseSuccess(req, res, data)
 		.catch (err) ->
-			console.log className, '|', 'ERROR:', err
-
 			# Return JSON Error Response
 			Helper.responseError(req, res, err)
