@@ -34,8 +34,16 @@ class Helper
 		(_.capitalize(word) for word in text.split(delimiter)).join ''
 
 
-	getUTCDateTime: (dateTime) =>
+	getUTCDateTime: () =>
 		moment.utc().format('Y-MM-DD hh:mm:ss')
+
+
+	getYesterdayUTCDateTime: () =>
+		moment.utc().subtract(1, 'day').format('Y-MM-DD hh:mm:ss')
+
+
+	getTomorrowUTCDateTime: () =>
+		moment.utc().add(1, 'day').format('Y-MM-DD hh:mm:ss')
 
 
 module.exports = new Helper()

@@ -7,8 +7,8 @@
 #
 #	@request parameter(s)
 #		{string}	index_name		(required)
-#		{datetime}	start_datetime	(optional | required with end_datetime)
-#		{datetime}	end_datetime	(optional | required with start_datetime)
+#		{datetime}	start_datetime	(optional | required with end_datetime | UTC Format)
+#		{datetime}	end_datetime	(optional | required with start_datetime | UTC Format)
 #		{integer}	limit			(optional)
 #
 #	@response (JSON Format)
@@ -18,7 +18,7 @@
 #					"id":		{integer}
 #					"name":		{string}
 #					"value":	{double}
-#					"datetime":	{datetime}
+#					"datetime":	{datetime}	(UTC Format)
 #				}
 #			],
 #			"message": {string}

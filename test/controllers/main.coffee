@@ -7,8 +7,8 @@ describe 'MainController', =>
 	it 'getIndexValue with all parameters [Success]', (done) =>
 		data =
 			'index_name':		'NASDAQ'
-			'start_datetime':	'2017-05-22'
-			'end_datetime':		'2017-05-22'
+			'start_datetime':	Helper.getYesterdayUTCDateTime()
+			'end_datetime':		Helper.getTomorrowUTCDateTime()
 			'limit':			10
 
 		supertest.post('/api/index/value/get')
@@ -32,8 +32,8 @@ describe 'MainController', =>
 	it 'getIndexValue with index_name, start_datetime and end_datetime parameter [Success]', (done) =>
 		data =
 			'index_name': 		'NASDAQ'
-			'start_datetime':	'2017-05-22'
-			'end_datetime':		'2017-05-22'
+			'start_datetime':	Helper.getYesterdayUTCDateTime()
+			'end_datetime':		Helper.getTomorrowUTCDateTime()
 
 		supertest.post('/api/index/value/get')
 			.send(data)
@@ -67,7 +67,7 @@ describe 'MainController', =>
 	it 'getIndexValue with index_name, start_datetime without end_datetime parameter [Fail]', (done) =>
 		data =
 			'index_name': 		'NASDAQ'
-			'start_datetime':	'2017-05-22'
+			'start_datetime':	Helper.getYesterdayUTCDateTime()
 
 		supertest.post('/api/index/value/get')
 			.send(data)
@@ -79,7 +79,7 @@ describe 'MainController', =>
 	it 'getIndexValue with index_name, end_datetime without start_datetime parameter [Fail]', (done) =>
 		data =
 			'index_name': 		'NASDAQ'
-			'end_datetime':		'2017-05-22'
+			'end_datetime':		Helper.getTomorrowUTCDateTime()
 
 		supertest.post('/api/index/value/get')
 			.send(data)
@@ -90,8 +90,8 @@ describe 'MainController', =>
 
 	it 'getIndexValue with start_datetime, end_datetime and limit parameter except index_name parameter [Fail]', (done) =>
 		data =
-			'start_datetime':	'2017-05-22'
-			'end_datetime':		'2017-05-22'
+			'start_datetime':	Helper.getYesterdayUTCDateTime()
+			'end_datetime':		Helper.getTomorrowUTCDateTime()
 			'limit':			10
 
 		supertest.post('/api/index/value/get')
@@ -104,8 +104,8 @@ describe 'MainController', =>
 	it 'getIndexValue with all parameter but limit is 0 [Fail]', (done) =>
 		data =
 			'index_name': 		'NASDAQ'
-			'start_datetime':	'2017-05-22'
-			'end_datetime':		'2017-05-22'
+			'start_datetime':	Helper.getYesterdayUTCDateTime()
+			'end_datetime':		Helper.getTomorrowUTCDateTime()
 			'limit':			0
 
 		supertest.post('/api/index/value/get')
@@ -118,8 +118,8 @@ describe 'MainController', =>
 	it 'getIndexValue with all parameter but limit is negative value [Fail]', (done) =>
 		data =
 			'index_name': 		'NASDAQ'
-			'start_datetime':	'2017-05-22'
-			'end_datetime':		'2017-05-22'
+			'start_datetime':	Helper.getYesterdayUTCDateTime()
+			'end_datetime':		Helper.getTomorrowUTCDateTime()
 			'limit':			-1
 
 		supertest.post('/api/index/value/get')

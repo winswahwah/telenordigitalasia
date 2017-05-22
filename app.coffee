@@ -13,6 +13,7 @@ global.Promise	= require 'bluebird'
 global.Joi		= Promise.promisifyAll(require 'joi')
 global.moment	= require 'moment'
 global.request	= require 'request-promise'
+global.cheerio	= require 'cheerio'
 
 # Load Config
 global.config = require './config/app_config'
