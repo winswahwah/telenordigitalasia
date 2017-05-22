@@ -1,0 +1,6 @@
+--recursive
+--reporter spec
+--slow 1000
+--require app.coffee
+--timeout 60000
+--compilers coffee:coffee-script/register
