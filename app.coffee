@@ -81,6 +81,8 @@ module.exports = ()->
 	# Database Connection Authentication
 	Promise.resolve(mysql.authenticate())
 		.then =>
+			Promise.resolve(Index.scrapeNASDAQIndexValue())
+		.then =>
 			# Listening to server port
 			server.listen app.get('port'), =>
 				console.log "Listening on port #{app.get('port')}"

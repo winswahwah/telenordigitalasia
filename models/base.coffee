@@ -17,4 +17,14 @@ class Base
 				throw err
 
 
+	create: (data, transaction) =>
+		Promise.resolve(@schema.create(data, transaction: transaction))
+			.then (obj) =>
+				unless obj then return null
+
+				obj.dataValues
+			.catch (err) =>
+				throw err
+
+
 module.exports = Base
