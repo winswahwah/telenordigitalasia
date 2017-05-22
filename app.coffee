@@ -37,6 +37,45 @@ module.exports = ()->
 	app.use bodyParser.json()
 	app.use useragent.express()
 
+	# Load Libs
+	_.chain(fs.readdirSync './libs')
+		.filter (file) ->
+			/coffee$/.test file
+		.map (file) ->
+			file.split('.coffee')[0]
+		.forEach (file) ->
+			global[_.capitalize(_.camelCase(file))] = require "./libs/#{file}"
+		.commit()
+
+	# Load Controllers
+	_.chain(fs.readdirSync('./controllers'))
+		.filter (file) ->
+			/coffee$/.test file
+		.map (file) ->
+			file.split('.coffee')[0]
+		.forEach (file) ->
+			_file = "#{file}"
+			mod = "#{Helper.parseControllerName(_file)}Controller"
+			global[mod] = require "./controllers/#{file}"
+		.commit()
+
+	# Load Schemas
+	_.chain(fs.readdirSync './models/schemas')
+		.filter (file) -> /coffee$/.test file
+		.map (file) -> file.split('.coffee')[0]
+		.forEach (file) -> global["#{_.capitalize(file)}Schema"] = require "./models/schemas/#{file}"
+		.commit()
+
+	# Load Models
+	_.chain(fs.readdirSync './models')
+		.filter (file) -> /coffee$/.test file
+		.map (file) -> file.split('.coffee')[0]
+		.forEach (file) -> global[_.capitalize(file)] = require "./models/#{file}"
+		.commit()
+
+	# Load Routes
+	require('./controllers')(app)
+
 	# Database Connection Authentication
 	Promise.resolve(mysql.authenticate())
 		.then =>
