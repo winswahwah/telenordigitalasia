@@ -1,3 +1,5 @@
+'use strict'
+
 class Index extends Base
 
 
