@@ -4,7 +4,7 @@ config =
 	'database':
 		'mysql':
 			'username':	'root'
-			'password':	''
+			'password':	null
 			'database':	'telenor_digital_asia'
 			'options':
 				'host':			'127.0.0.1'

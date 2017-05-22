@@ -13,7 +13,7 @@ global.moment	= require 'moment'
 global.request	= require 'request-promise'
 
 # Load Config
-global.config = require './config/config'
+global.config = require './config/app_config'
 
 # Load Error List
 global.ERROR = require './config/error'
