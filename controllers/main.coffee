@@ -36,7 +36,7 @@ exports.scrapeNASDAQIndexValue = (req, res) ->
 
 #	getIndexValue
 #
-#	@restapi GET /api/index/value/get
+#	@restapi POST /api/index/value/get
 #
 #	@request parameter(s)
 #		{string}	index_name		(required)
