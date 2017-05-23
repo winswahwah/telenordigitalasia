@@ -3,7 +3,7 @@
 class Index extends Base
 
 
-	_scrapeNASDAQIndexValue: () =>
+	scrapeNASDAQIndexValue: () =>
 		# Declare Database Transaction
 		transaction = undefined
 
@@ -47,21 +47,13 @@ class Index extends Base
 								# Commit And Release Database Transaction
 								if transaction isnt undefined
 									transaction.commit()
+
+								result
 					)
-			.then ->
-				return
+					.then (result) ->
+						result
 			.catch (err) ->
 				return
-
-
-	scrapeNASDAQIndexValue: () =>
-		# Specific Interval Rate (Milliseconds)
-		interval = 3600000
-
-		# Periodically Call _scrapeNASDAQIndexValue Function
-		setInterval (=>
-			@_scrapeNASDAQIndexValue()
-		), interval
 
 
 module.exports = new Index({

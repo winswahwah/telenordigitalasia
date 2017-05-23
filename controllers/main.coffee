@@ -1,6 +1,39 @@
 'use strict'
 
 
+#	scrapeNASDAQIndexValue
+#
+#	@restapi POST /api/index/value/scrape/NASDAQ
+#
+#	@request parameter(s)
+#		(Not Required)
+#
+#	@response (JSON Format)
+#		{
+#			"data": [
+#				{
+#					"id":		{integer}
+#					"name":		{string}
+#					"value":	{double}
+#					"datetime":	{datetime}	(UTC Format)
+#				}
+#			],
+#			"message": {string}
+#		}
+#
+exports.scrapeNASDAQIndexValue = (req, res) ->
+	# Call scrapeNASDAQIndexValue From Index Model
+	Promise.resolve(Index.scrapeNASDAQIndexValue())
+		.then (result) ->
+			[200, result, 'NASDAQ Index Value Scraped Successfully']
+		.then (data) ->
+			# Return JSON Response
+			Helper.responseSuccess(req, res, data)
+		.catch (err) ->
+			# Return JSON Error Response
+			Helper.responseError(req, res, err)
+
+
 #	getIndexValue
 #
 #	@restapi GET /api/index/value/get

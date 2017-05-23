@@ -22,9 +22,9 @@ global.config = require './config/app_config'
 global.ERROR = require './config/error'
 
 # Initialize Database Connection
-global.Sequelize = Promise.promisifyAll(require 'sequelize')
-mysqlConf = config.database.mysql
-global.mysql = new Sequelize mysqlConf.database, mysqlConf.username, mysqlConf.password, mysqlConf.options
+global.Sequelize	= Promise.promisifyAll(require 'sequelize')
+mysqlConf			= config.database.mysql
+global.mysql		= new Sequelize mysqlConf.database, mysqlConf.username, mysqlConf.password, mysqlConf.options
 
 
 module.exports = ()->
@@ -81,8 +81,6 @@ module.exports = ()->
 
 	# Database Connection Authentication
 	Promise.resolve(mysql.authenticate())
-		.then =>
-			Promise.resolve(Index.scrapeNASDAQIndexValue())
 		.then =>
 			# Listening to server port
 			server.listen app.get('port'), =>
